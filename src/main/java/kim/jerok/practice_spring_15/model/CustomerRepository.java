@@ -25,8 +25,11 @@ public class CustomerRepository {
         return customer;
     }
     
+    @Transactional
     public void update(Customer customer) {
-        em.flush();
+        // 트랜잭션 시작
+        em.merge(customer);
+        // 트랜잭션 종료 (영속 객체의 변경이 감지되면 flush)
     }
 
     @Transactional

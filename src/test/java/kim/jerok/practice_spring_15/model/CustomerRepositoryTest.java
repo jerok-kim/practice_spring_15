@@ -90,22 +90,57 @@ public class CustomerRepositoryTest {
     @Test
     @DisplayName("update() test")
     public void update_test() throws Exception {
+        // given
+        // 순수한 객체(PK가 없는 것)
+        // 비영속 객체(PK가 있는 것)
+        // 준영속 객체(PK가 있고, 영속화 되었다가 detach 된 것)
+        // 영속 객체(PK가 있고, 영속화 된 것)
+        Customer customerPS = customerRepository.findById(1L);
+        // em.merge(customerPS);
+        
+        customerPS.update("Jerok", "0102345");
+        em.flush();  // 트랜잭션 종료
 
         // given 2
-        Customer customerPS = customerRepository.findById(1L);
-        customerPS.update("임꺽정", "0103333");
+        // Customer customerPS = customerRepository.findById(1L);
+        // customerPS.update("임꺽정", "0103333");
 
         // when
         // em.flush();
-        customerRepository.update(customerPS);
+        // customerRepository.update(customerPS);
 
         // then
 
 
     }  // rollback
     
-    public void delete() {}
+    @Test
+    @DisplayName("delete() test")
+    public void delete_test() throws Exception {
+        // given
+        Customer customerPS = customerRepository.findById(1L);
+                
+        // when
+        customerRepository.delete(customerPS);
+        System.out.println(customerPS.getId());
+        
+        // then
+        Assertions.assertThat(customerPS.getId()).isEqualTo(1);
+        
+    }
     
-    public void findAll() {}
+    @Test
+    @DisplayName("findAll() test")
+    public void findAll_test() throws Exception {
+        // given
+        
+                
+        // when
+        
+        
+        // then
+        
+        
+    }
 
 }

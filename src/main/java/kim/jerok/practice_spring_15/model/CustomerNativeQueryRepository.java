@@ -20,7 +20,7 @@ public class CustomerNativeQueryRepository {
 
     @Transactional
     public void save(Customer customer) {
-        Query query = em.createNamedQuery("INSERT INTO customer (name, tel) VALUES (:name, :tel)");
+        Query query = em.createNativeQuery("INSERT INTO customer (name, tel) VALUES (:name, :tel)");
         query.setParameter("name", customer.getName());
         query.setParameter("tel", customer.getTel());
         query.executeUpdate();
@@ -55,6 +55,5 @@ public class CustomerNativeQueryRepository {
         query.setParameter("row", row);
         return query.getResultList();
     }
-
 
 }
