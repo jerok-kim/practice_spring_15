@@ -1,14 +1,13 @@
 package kim.jerok.practice_spring_15.model;
 
+import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
-@Entity
+@Table(name = "customer_tb")
+@Entity  // hibernate가 관리해준다.
 public class Customer {
 
     @Id
@@ -18,9 +17,11 @@ public class Customer {
     private String tel;
 
     public Customer() {
-        System.out.println("Jackson 발동시 디폴트 생성자 실행");
+        // setter가 없지만, 리플렉션을 통해서 private 변수에 직접 접근해서 값을 할당함.
+        System.out.println("디폴트 생성자 호출 = hibernate가 DB의 레코드를 영속화(자바 객체로) 시킬 때");
     }
 
+    @Builder
     public Customer(Long id, String name, String tel) {
         System.out.println("조회시에 mapper 동작할 때 풀 생성자 실행");
         this.id = id;

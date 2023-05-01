@@ -18,13 +18,15 @@ public class CustomerRepository {
     }
 
     @Transactional
-    public void save(Customer customer) {
-        em.persist(customer);
+    public Customer save(Customer customer) {
+        // customer -> 비영속
+        em.persist(customer);  // -> 영속화 -> flush
+        // customer -> 영속화 (id = 1)
+        return customer;
     }
-
-    @Transactional
+    
     public void update(Customer customer) {
-        em.merge(customer);
+        em.flush();
     }
 
     @Transactional
